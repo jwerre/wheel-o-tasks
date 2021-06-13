@@ -1,0 +1,149 @@
+body {
+	font-family: arial;
+	background: #6654A3 bottom right no-repeat url(../assets/bear.png);
+	font-family: 'Fredoka One', sans-serif;
+}
+
+header {
+	text-align: center;
+	color: white;
+}
+
+h1, h2 {
+	text-shadow: 2px 2px #333333;
+	color: white;
+	margin: 0;
+}
+
+h1 {
+	font-family: 'Fontdiner Swanky', sans-serif;
+	font-size: 85px;
+}
+
+h2 {
+	font-size: 35px;
+}
+
+h1,
+p {
+	margin: 0;
+}
+
+button {
+	cursor: pointer;
+	border: none;
+	width: 150px;
+	font-family: 'Fredoka One', sans-serif;
+	color: white;
+	background-color: #2a253b;
+}
+
+nav ul {
+	list-style: none;
+}
+
+main {
+	display: flex;
+	justify-content: center;
+	padding: 100px;
+}
+
+.power-control { 
+	color: white;
+}
+
+button.power-control:hover { 
+	background-color: #766f8d;
+}
+
+.pw1 {
+	background-color: #6fe8f0;
+}
+
+.pw2 {
+	background-color: #86ef6f;
+}
+
+.pw3 {
+	background-color: #ef6f6f;
+}
+
+
+#spin-button {
+	border: none;
+	background-color:#b0a7cf;
+	color: white;
+	width: 150px;
+	line-height: 80px;
+	text-transform: uppercase;
+	font-size: 18px;
+	border-radius: 3px;
+	margin-bottom: 25px;
+}
+
+#spin-button:hover {
+	background-color: darkslateblue;
+}
+
+#reset-button {
+	color: white;
+}
+
+#wheel {
+	position: relative;
+	width: 800px;
+	height: 800px;
+}
+
+#wheel::before {
+	content: '';
+	position: absolute;
+	top: -10px;
+	left: calc(50% - 20px);
+	width: 0; 
+	height: 0; 
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid #333;
+  }
+
+
+.slide-container {
+	width: 200px; 
+}
+
+
+.slider {
+	-webkit-appearance: none;  
+	appearance: none;
+	width: 100%; 
+	height: 25px; 
+	border-radius: 12px;
+	background: #d3d3d3; 
+	outline: none; 
+	-webkit-transition: .2s; 
+	transition: opacity .2s;
+}
+
+
+.slider:hover {
+	/* opacity: 1;  */
+}
+
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none; 
+	appearance: none;
+	width: 25px; 
+	height: 25px; 
+	background: #04AA6D; 
+	border-radius: 50%;
+	cursor: pointer; 
+}
+
+.slider::-moz-range-thumb {
+	width: 25px; 
+	height: 25px; 
+	background: #04AA6D; 
+	cursor: pointer; 
+}
