@@ -1,7 +1,7 @@
 body {
 	font-family: arial;
 	background: #6654A3 bottom right no-repeat url(../assets/bear.png);
-	font-family: 'Fredoka One', sans-serif;
+	font-family: 'Bangers', sans-serif;
 }
 
 header {
@@ -13,15 +13,20 @@ h1, h2 {
 	text-shadow: 2px 2px #333333;
 	color: white;
 	margin: 0;
+	letter-spacing: 2px;
 }
 
 h1 {
-	font-family: 'Fontdiner Swanky', sans-serif;
 	font-size: 85px;
 }
 
 h2 {
 	font-size: 35px;
+}
+
+h2 em {
+	font-style: normal;
+	text-decoration: underline;
 }
 
 h1,
@@ -33,13 +38,10 @@ button {
 	cursor: pointer;
 	border: none;
 	width: 150px;
-	font-family: 'Fredoka One', sans-serif;
+	font-family: 'Bangers', sans-serif;
+	font-size: 27px;
 	color: white;
 	background-color: #2a253b;
-}
-
-nav ul {
-	list-style: none;
 }
 
 main {
@@ -48,40 +50,38 @@ main {
 	padding: 100px;
 }
 
-.power-control { 
+nav {
+	padding: 20px;
+}
+nav ul {
+	list-style: none;
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	padding-top: 40px;
+}
+
+#power-value {
+	font-size: 55px;
+	font-weight: normal;
+	text-align: center;
 	color: white;
+	text-shadow: 2px 2px #333333;
 }
-
-button.power-control:hover { 
-	background-color: #766f8d;
-}
-
-.pw1 {
-	background-color: #6fe8f0;
-}
-
-.pw2 {
-	background-color: #86ef6f;
-}
-
-.pw3 {
-	background-color: #ef6f6f;
-}
-
 
 #spin-button {
 	border: none;
-	background-color:#b0a7cf;
-	color: white;
-	width: 150px;
+	background-color: white;
+	color: darkslateblue;
+	width: 100%;
 	line-height: 80px;
 	text-transform: uppercase;
-	font-size: 18px;
 	border-radius: 3px;
 	margin-bottom: 25px;
 }
 
 #spin-button:hover {
+	color: white;
 	background-color: darkslateblue;
 }
 
@@ -95,7 +95,46 @@ button.power-control:hover {
 	height: 800px;
 }
 
-#wheel::before {
+#wheel .background {
+	position: absolute;
+	top: -5px;
+	bottom: -5px;
+	left: -5px;
+	right: -5px;
+	z-index: -1;
+	border-radius: 50%;
+	background-color: #312753;
+}
+
+
+#wheel .needle {
+	transform: perspective(40px) rotateX(340deg) rotateZ(135deg);
+	transform-origin: 50% 50%;
+	border-radius: 50% 50% 50% 0;
+	padding: 0 3px 3px 0;
+	width: 40px;
+	height: 40px;
+	background: #ed1f34;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -21px 0 0 -21px;
+	-webkit-box-shadow: -1px 1px 4px rgba(0, 0, 0, .5);
+	-moz-box-shadow: -1px 1px 4px rgba(0, 0, 0, .5);
+	box-shadow: -1px 1px 4px rgba(0, 0, 0, .5);
+}
+
+.needle:after {
+	content: '';
+	width: 1em;
+	height: 1em;
+	margin: 1em 0 0 .7em;
+	background: #ffffff;
+	position: absolute;
+	border-radius: 50%;
+  }
+
+/* #wheel .needle {
 	content: '';
 	position: absolute;
 	top: -10px;
@@ -104,8 +143,28 @@ button.power-control:hover {
 	height: 0; 
 	border-left: 20px solid transparent;
 	border-right: 20px solid transparent;
-	border-top: 20px solid #333;
-  }
+	border-top: 20px solid white;
+} */
+
+#wheel.spinning .needle {
+	/* transform-origin: center top; */
+	/* transform: rotate( 330deg ); */
+	transform: rotate( var(--tail-rotate) );
+	animation-name: needleAnim;
+	animation-duration: 100ms;
+	animation-timing-function: ease-out;
+	animation-delay: 0;
+	animation-iteration-count: infinite;
+}
+
+@keyframes needleAnim {
+	from {
+		--tail-rotate: 0deg;
+	}
+	to {
+		--tail-rotate: 30deg;
+	}
+}
 
 
 .slide-container {
@@ -119,31 +178,31 @@ button.power-control:hover {
 	width: 100%; 
 	height: 25px; 
 	border-radius: 12px;
-	background: #d3d3d3; 
+	background: #312753; 
 	outline: none; 
 	-webkit-transition: .2s; 
 	transition: opacity .2s;
-}
-
-
-.slider:hover {
-	/* opacity: 1;  */
+	padding: 0 10px;
 }
 
 
 .slider::-webkit-slider-thumb {
 	-webkit-appearance: none; 
 	appearance: none;
-	width: 25px; 
-	height: 25px; 
-	background: #04AA6D; 
+	width: 15px; 
+	height: 15px; 
+	background: white; 
 	border-radius: 50%;
 	cursor: pointer; 
 }
 
 .slider::-moz-range-thumb {
-	width: 25px; 
-	height: 25px; 
-	background: #04AA6D; 
+	width: 15px; 
+	height: 15px; 
+	background: white; 
 	cursor: pointer; 
 }
+
+/* .slider:hover::-webkit-slider-thumb {
+	background-color: darkslateblue;
+} */

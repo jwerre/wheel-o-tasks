@@ -6,27 +6,23 @@
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<!-- <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet"> -->
-		<link href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&family=Fredoka+One&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 		<link rel="icon" href="assets/favicon.png">
 	</head>
 	<body>
 
 		<header>
 			<h1>Wheel-O-Tasks!</h1>
-			<h2>Spin the wheel to find out what your task is for the day!</h2>
+			<h2 id="subheader">Spin the wheel to find out what your task is for the day!</h2>
 		</header>
 		
 		<main>
-			<!-- <div class="slide-container">
-				<div id="power-value">1</div>
-				<input type="range" min="1" max="10" value="1" class="slider" id="power-slider">
-			</div> -->
 			<nav>
-				<ul id="power-controls">
-					<li><button class="power-control" data-power="5">High</button></li>
-					<li><button class="power-control" data-power="3">Med</button></li>
-					<li><button class="power-control" data-power="1">Low</button></li>
-				</ul>
+				<div class="slide-container">
+					<div id="power-value">1</div>
+					<input type="range" min="1" max="100" value="1" class="slider" id="power-slider">
+				</div>
 				<ul>
 					<li><button id="spin-button" alt="Spin" >Spin</button></li>
 					<li><a id="reset-button" href="#" >Spin Again</a></li>
@@ -34,7 +30,9 @@
 			</nav>
 	
 			<div id="wheel">
+				<div class="needle"></div>
 				<canvas id="canvas" width="800" height="800"></canvas>
+				<div class="background"></div>
 			</div>
 		</main>
 

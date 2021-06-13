@@ -2,10 +2,6 @@ const CACHE_NAME = 'tasks';
 const MIN_TASKS = 2;
 const CLICK_SOUND = new Audio('assets/tick.mp3');
 
-const powerControlButton = document.querySelectorAll('.power-control');
-const spinButton = document.getElementById('spin-button');
-const resetButton = document.getElementById('reset-button');
-
 const COLORS = [
 	'#00A1FE',
 	'#1EE5CE',
@@ -23,7 +19,7 @@ const COLORS = [
 
 const TASKS = [
 	'Make lunch',
-	'Walk Stella',
+	'Walk dog',
 	'Make bed',
 	'Clean living room',
 	'Clean bedroom',
@@ -41,8 +37,16 @@ const TASKS = [
 	'Clean closet',
 ]
 
+
+const wheelContainer = document.getElementById('wheel');
+const spinButton = document.getElementById('spin-button');
+const resetButton = document.getElementById('reset-button');
+const powerSlider = document.getElementById('power-slider');
+const powerValue = document.getElementById('power-value');
+const subheader = document.getElementById('subheader');
+
 let colorIndex = 0,
-	wheelPower = 0,
+	wheelPower = 1,
 	wheelSpinning = false,
 	wheel;
 	
@@ -74,40 +78,25 @@ function saveUsedTask (task) {
 }
 
 function playSound() {
+	// function soundEndedHandler () {
+	// 	CLICK_SOUND.removeEventListener('ended', soundEndedHandler);
+	// 	wheelContainer.classList.remove('spinning');
+	// }
+	// wheelContainer.classList.add('spinning');
 	CLICK_SOUND.pause();
 	CLICK_SOUND.currentTime = 0;
 	CLICK_SOUND.play();
+	// CLICK_SOUND.addEventListener('ended', soundEndedHandler);
 }
 
-function powerSelected(powerLevel) {
-	// console.log('powerSele', powerLevel);
-
-	if (wheelSpinning == false) {
-
-		powerControlButton[2].classList.remove("pw3");
-		powerControlButton[1].classList.remove("pw2");
-		powerControlButton[0].classList.remove("pw1");
-
-		if (powerLevel >= 1) {
-			powerControlButton[2].className = "pw3";
-		}
-
-		if (powerLevel >= 3) {
-			powerControlButton[1].className = "pw2";
-		}
-
-		if (powerLevel >= 5) {
-			powerControlButton[0].className = "pw1";
-		}
-
-		wheelPower = powerLevel;
-
-	}
+function updatePower (power) {
+	powerValue.textContent = power
+	wheelPower = Math.ceil(power/10);
+	console.log(powerValue, power, wheelPower);
 }
 
 function startSpin() {
 	if (wheelSpinning == false) {
-
 		wheel.animation.spins = Math.round(wheelPower * 2);
 		wheel.startAnimation();
 		wheelSpinning = true;
@@ -121,7 +110,10 @@ function resetWheel() {
 function wheelFinishedHandler(task) {
 
 	saveUsedTask(task.data);
-	console.log(`Your task this morning is ${task.text.toLowerCase()}!`);
+	// wheelContainer.classList.remove('spinning')
+	msg = `Your task is: <em>${task.text.toLowerCase()}</em>!`;
+	console.log(msg);
+	subheader.innerHTML = msg;
 	// setTimeout(resetWheel, 2000);
 }
 
@@ -130,9 +122,9 @@ function getTasks () {
 	return TASKS.filter( task => !used.includes(task) );
 }
 
-function powerControlEventHandler (e) {
-	e.preventDefault(e);
-	powerSelected(e.target.dataset.power);
+// EVENT HANDLERS
+function powerSliderChangeEventHandler (e) {
+	updatePower(e.target.value);
 }
 
 function spinButtonEventHandler (e) {
@@ -145,11 +137,8 @@ function resetButtonEventHandler (e) {
 	resetWheel();
 }
 
-
 function initLiseners () {
-	powerControlButton.forEach( (btn) => {
-		btn.addEventListener('click', powerControlEventHandler);
-	});
+	powerSlider.addEventListener('input', powerSliderChangeEventHandler);
 	spinButton.addEventListener('click', spinButtonEventHandler);
 	resetButton.addEventListener('click', resetButtonEventHandler);
 }
@@ -157,14 +146,14 @@ function initLiseners () {
 (async function () {
 
 
-	let myFont = new FontFace(
-		"Fredoka One",
-		"url(https://fonts.gstatic.com/s/fredokaone/v8/k3kUo8kEI-tA1RRcTZGmTlHGCaen8wf-.woff2)"
-	);
+	// let myFont = new FontFace(
+	// 	"Fredoka One",
+	// 	"url(https://fonts.gstatic.com/s/fredokaone/v8/k3kUo8kEI-tA1RRcTZGmTlHGCaen8wf-.woff2)"
+	// );
 
-	let font = await myFont.load()
+	// let font = await myFont.load()
 
-	document.fonts.add(font);
+	// document.fonts.add(font);
 	
 	const tasks = getTasks();
 	
@@ -183,7 +172,7 @@ function initLiseners () {
 				data: task,
 				text: task.toUpperCase(),
 				textFillStyle: '#FFF',
-				textFontFamily: 'Fredoka One',
+				textFontFamily: 'Arial',
 			};
 	
 			if (task.length > 12) {
@@ -205,8 +194,8 @@ function initLiseners () {
 		},
 		pins: {
 			number: tasks.length,
-			fillStyle: 'silver',
-			outerRadius: 3,
+			fillStyle: '#000',
+			outerRadius: 2,
 		}
 	});	
 	
