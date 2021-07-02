@@ -3,8 +3,8 @@ const MIN_TASKS = 2;
 const CLICK_SOUND = new Audio('assets/tick.mp3');
 
 const COLORS = [
-	'#00A1FE',
-	'#1EE5CE',
+	['#00A1FE'], // can add two colors for gradients
+	'#1EE5CE', 
 	'#60D838',
 	'#F9E231',
 	'#FF634D',
@@ -156,7 +156,11 @@ function initLiseners () {
 	// document.fonts.add(font);
 	
 	const tasks = getTasks();
-	
+
+	const canvas = document.getElementById('canvas');
+	const ctx = canvas.getContext('2d');
+	const canvasCenter = canvas.height / 2;
+
 	wheel = new Winwheel({
 		outerRadius: 400, // Set outer radius so wheel fits inside the background.
 		innerRadius: 5, // Make wheel hollow so segments don't go all way to center.
@@ -166,9 +170,25 @@ function initLiseners () {
 		textAlignment: 'outer', // Align text to outside of wheel.
 		numSegments: tasks.length, // Specify number of segments.
 		segments: tasks.map( (task, i) => {
+
+			let radGradient,
+				color = COLORS[colorIndex];
+
+			if (Array.isArray(color)) {
+
+				if (color.length > 1) {
+					radGradient = ctx.createRadialGradient(canvasCenter, canvasCenter, 0, canvasCenter, canvasCenter, canvas.height*.5);
+					radGradient.addColorStop(0, color[0]);
+					radGradient.addColorStop(1, color[1]);
+				} else {
+					color = COLORS[0];
+				}
+
+			}
 	
 			let data = {
-				fillStyle: COLORS[colorIndex],
+				fillStyle: radGradient || color,
+				// fillStyle: COLORS[colorIndex],
 				data: task,
 				text: task.toUpperCase(),
 				textFillStyle: '#FFF',
