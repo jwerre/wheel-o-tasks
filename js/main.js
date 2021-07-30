@@ -19,7 +19,6 @@ const COLORS = [
 
 const TASKS = [
 	'Make lunch',
-	'Walk dog',
 	'Make bed',
 	'Clean living room',
 	'Clean bedroom',
@@ -35,6 +34,7 @@ const TASKS = [
 	'Clean toilet',
 	'Pick up toys',
 	'Clean closet',
+	'Sweep kitchen',
 ]
 
 
